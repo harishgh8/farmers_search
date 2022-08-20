@@ -5,22 +5,8 @@ import FarmerSearchBar from "../src/components/FarmerSearchBar";
 
 function App() {
   const [data, setData] = useState([]);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [searchResults, setSearchResults] = useState([]);
-  const searchHandler = (searchTerm) => {
-    setSearchTerm(searchTerm);
-    if (searchTerm !== "") {
-      const newList = data.filter((names) => {
-        return Object.values(names)
-          .join(" ")
-          .toLowerCase()
-          .includes(searchTerm.toLowerCase());
-      });
-      setSearchResults(newList);
-    } else {
-      setSearchResults(data);
-    }
-  };
+  const [q, setQ] = useState("");
+
   useEffect(() => {
     fetch("./farmers.json")
       .then((response) => response.json())
@@ -28,14 +14,22 @@ function App() {
       .catch((error) => console.log(error));
   }, []);
 
+  const searchTable = (rows) => {
+    return rows.filter(
+      (row) =>
+        row.farmer_name.toLowerCase().indexOf(q.toLocaleLowerCase()) > -1 ||
+        row.city.toLowerCase().indexOf(q.toLocaleLowerCase()) > -1
+    );
+  };
   return (
     <div>
-      <FarmerSearchBar
-        data={searchTerm.length < 1 ? data : searchResults}
-        term={searchTerm}
-        searchKeyword={searchHandler}
+      <input
+        type="text"
+        placeholder="Name, City"
+        onChange={(e) => setQ(e.target.value)}
       />
-      <FarmerListTable data={data} />
+      <FarmerSearchBar data={data} />
+      <FarmerListTable data={searchTable(data)} />
     </div>
   );
 }

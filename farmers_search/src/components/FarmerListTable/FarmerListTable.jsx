@@ -1,4 +1,5 @@
 import React from "react";
+import { StyledTable } from "./styles";
 
 const FarmerListTable = ({ data }) => {
   const headers = [
@@ -6,11 +7,11 @@ const FarmerListTable = ({ data }) => {
     { key: "city", label: "City" },
     { key: "state", label: "State" },
     { key: "cp_spend", label: "Crop Protection Spend" },
-    { key: "seed_purchases", label: "Seed(Bags)" },
+    { key: "seed_purchases", label: "Seed (Bags)" },
   ];
 
   return (
-    <table>
+    <StyledTable>
       <thead>
         <tr>
           {headers.map((row) => {
@@ -31,7 +32,7 @@ const FarmerListTable = ({ data }) => {
           );
         })}
       </tbody>
-    </table>
+    </StyledTable>
   );
 };
 

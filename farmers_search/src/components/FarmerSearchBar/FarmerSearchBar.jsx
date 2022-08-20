@@ -1,26 +1,16 @@
 import React from "react";
-import { useRef } from "react";
 
-const FarmerSearchBar = (props) => {
-  const inputEle = useRef("");
-  const getSearchTerm = () => {
-    props.searchKeyword(inputEle.current.value);
-  };
-  console.log(props);
+const FarmerSearchBar = ({ data }) => {
   return (
     <>
       <select>
-        {props.data.map((names) => {
+        {data.map((names) => {
           return <option key={names.farmer_name}> {names.state}</option>;
         })}
       </select>
-      <input
-        ref={inputEle}
-        type="text"
-        placeholder="Name, City"
-        value={props.term}
-        onChange={getSearchTerm}
-      />
+      <label>
+        <input type="checkbox" />
+      </label>
     </>
   );
 };
