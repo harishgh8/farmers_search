@@ -1,5 +1,6 @@
 import React from "react";
-import { StyledTable } from "./styles";
+
+import { StyledTable } from "./style";
 
 const FarmerListTable = ({ data }) => {
   const headers = [
